@@ -1,15 +1,15 @@
 <?php
 
 
-class about extends Controller
+class c_about extends Controller
 {
-    public function index()
-    {
-        $this->setCss('/assets/css/style.css');
-        $this->setJs('assets/js/main.js');
-        $data = [
-            'title' => 'About Us'
-        ];
-        $this->view('pages/about', $data);
-    }
+	public function __construct()
+	{
+		$this->setCss('/assets/css/style.css');
+		$this->setJs('assets/js/main.js');
+		$data = [
+			'title' => 'About Us'
+		];
+		$this->view('pages/about', $data);
+	}
 }

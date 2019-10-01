@@ -1,9 +1,9 @@
 <?php
 
-class index{
 
-    public function __construct()
-    {
-
-    }
+class m_index
+{
+	public function __construct()
+	{
+	}
 }

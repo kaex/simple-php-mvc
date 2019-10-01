@@ -1,45 +1,41 @@
 <?php
 
-class Core{
-    protected $currentController = 'index';
-    protected $currentMethod = 'index';
-    protected $params = [];
 
+class Core
+{
+	protected $currentController = 'index';
+	protected $params            = [];
 
-    public function __construct(){
-        $url = $this->getUrl();
+	public function __construct()
+	{
+		$url = $this->getUrl();
 
-        if(file_exists('../app/c/' . $url[1]. '.php')){
-            $this->currentController = $url[1];
-            unset($url[1]);
+		if (file_exists('../app/c/' . htmlspecialchars(trim($url[1])) . '.php'))
+		{
+			$this->currentController = htmlspecialchars(trim($url[1]));
+			unset($url[1]);
+		}
+		require_once '../app/c/' . $this->currentController . '.php';
 
-        }
-        require_once '../app/c/'. $this->currentController . '.php';
-        $this->currentController = new $this->currentController;
+		$class = 'c_'.$this->currentController;
+		$this->currentController = new $class;
 
-        if(isset($url[1])){
-            if(method_exists($this->currentController, $url[1])){
-                $this->currentMethod = $url[1];
-                unset($url[1]);
-            }
+		$this->params = $url ? array_values($url) : [];
+	}
 
-        }
+	public function getUrl()
+	{
+		if (isset($_GET['url']))
+		{
+			$url = rtrim($_GET['url'], '/');
+			$url = filter_var($url, FILTER_SANITIZE_URL);
+			$url = explode('/', $url);
 
-        $this->params = $url ? array_values($url) : [];
-
-        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
-    }
-
-    public function getUrl()
-    {
-        if(isset($_GET['url']))
-        {
-            $url = rtrim($_GET['url'], '/');
-            $url = filter_var($url, FILTER_SANITIZE_URL);
-            $url = explode('/',$url);
-            return $url;
-        }else{
-            return null;
-        }
-    }
+			return $url;
+		}
+		else
+		{
+			return null;
+		}
+	}
 }

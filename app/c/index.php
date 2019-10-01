@@ -1,12 +1,13 @@
 <?php
 
-class index extends Controller
+
+class c_index extends Controller
 {
-    public function index()
-    {
-        $data = [
-            'title' => 'Welcome Home'
-        ];
-        $this->view('pages/index', $data);
-    }
+	public function __construct()
+	{
+		$data = [
+			'title' => 'Welcome Home'
+		];
+		$this->view('pages/index', $data);
+	}
 }

@@ -1,11 +1,11 @@
 <?php
-spl_autoload_register(function($className){
-    require_once __DIR__ . '/../core/' . $className . '.php';
-});
+require_once __DIR__ . '/../core/Functions.php';
+require_once __DIR__ . '/../core/Core.php';
+require_once __DIR__ . '/../core/Controller.php';
 
-define('APPROOT', __DIR__. '/../app');
+define('APPROOT', __DIR__ . '/../app');
 define('URLROOT', 'localhost');
-define('SITENAME', 'xosad');
+define('SITENAME', 'title');
 
 $init = new Core;
 ?>
